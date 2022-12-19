@@ -21,6 +21,7 @@ import Divider from 'primevue/divider';
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 import ProgressSpinner from 'primevue/progressspinner';
+import ProgressBar from 'primevue/progressbar';
 
 import router from './router'
 import 'primevue/resources/themes/saga-blue/theme.css'
@@ -48,6 +49,7 @@ app.component('InputSwitch', InputSwitch);
 app.component('Button', Button);
 app.component('InputText', InputText)
 app.component('ProgressSpinner', ProgressSpinner);
+app.component('ProgressBar', ProgressBar);
 app.component('Image', Image)
 app.directive('ripple', Ripple);
 app.directive('styleclass', StyleClass);
