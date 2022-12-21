@@ -1,12 +1,13 @@
 <template>
     <div class="grid grid-nogutter surface-card">
-        
+
         <!-- COl1 -->
         <div class="col-12 md:col-12 lg:col-6">
             <div class="p-7 ">
                 <div class="border-round surface-card">
                     <h1>OpenAI Image Generator</h1>
-                    <p>Describe a fantastical image in words, and our magical AI will created its best representation on the right.</p>
+                    <p>Describe a fantastical image in words, and our magical AI will created its best representation on
+                        the right.</p>
                 </div>
                 <label for="email4" class="block text-900 font-xs mb-2">Image Description</label>
                 <InputText id="email4" v-model="prompt" type="text" class="w-full mb-3 p-3"
@@ -19,12 +20,20 @@
         <div class="col-12 md:col-12 lg:col-6">
             <div class="p-0">
                 <div class="border-round surface-card">
-                  <div v-if="!resImage">
-                    <img :src="imageVal" alt="img" class="image-fit" />
-                </div>  
-                  <div v-else >
-                    <img :src="resImage" alt="img" class="image-fit" />
-                </div>  
+
+                    <div v-if=!resImage>
+                        <img :src="srcImage" alt="img" class="image-fit" />                    
+                    </div>
+
+                    <div v-if=loading>
+                                
+                        <ProgressBar mode="indeterminate" style="height: .20em" />
+                    </div>
+
+                    <div v-else>
+                        <img :src="resImage" alt="img" class="image-fit" />
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -37,7 +46,7 @@
 
 import { defineComponent } from 'vue';
 import axios from 'axios';
-const url = "http://localhost:5001/openai/generateimage/";
+const url = "https://oai-express-serve.herokuapp.com/openai/generateimage/";
 import srcImage from '../images/src/1024x1024_pholder.png';
 export default defineComponent({
     name: "PromptModule",
@@ -47,7 +56,9 @@ export default defineComponent({
             resImage: '',
             srcImage: srcImage,
             imageHeight: '500px',
-            imageVal: srcImage
+            imageVal: srcImage,
+            loading: false,
+
         }
     },
     mounted() {
@@ -55,11 +66,14 @@ export default defineComponent({
     methods: {
         // Send text to AI  
         async sendText() {
+            this.loading = true;
             const res = await axios.post(url, {
                 prompt: this.prompt,
             })
             this.resImage = res.data.data;
             console.log(`Hey its RESIMAGE ${this.resImage}`)
+            this.loading = false;
+
         }
     },
     components: {},
