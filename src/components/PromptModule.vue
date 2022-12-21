@@ -21,15 +21,19 @@
             <div class="p-0">
                 <div class="border-round surface-card">
 
-                    <div v-show="loading">
+                    <div v-if=!resImage>
+                        <img :src="srcImage" alt="img" class="image-fit" />                    
+                    </div>
+
+                    <div v-if=loading>
+                                
                         <ProgressBar mode="indeterminate" style="height: .20em" />
                     </div>
-                    <div v-if="loading">
-                        <img :src="imageVal" alt="img" class="image-fit" />
-                    </div>
+
                     <div v-else>
                         <img :src="resImage" alt="img" class="image-fit" />
                     </div>
+
                 </div>
             </div>
         </div>
@@ -42,7 +46,7 @@
 
 import { defineComponent } from 'vue';
 import axios from 'axios';
-const url = "http://localhost:5001/openai/generateimage/";
+const url = "https://oai-express-serve.herokuapp.com/openai/generateimage/";
 import srcImage from '../images/src/1024x1024_pholder.png';
 export default defineComponent({
     name: "PromptModule",
