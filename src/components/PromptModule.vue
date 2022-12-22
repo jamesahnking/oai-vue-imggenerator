@@ -76,10 +76,7 @@ export default defineComponent({
                 })
 
                 this.resImage = res.data.data;
-
-                if (res.data.length) {
-                    this.loading = false;
-                }
+                this.loading = false;
                 console.log(`Hey its RESIMAGE ${this.resImage} this.loading = ${this.loading}`)
 
             } catch (err) {
