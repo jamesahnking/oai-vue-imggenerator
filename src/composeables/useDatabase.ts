@@ -17,7 +17,7 @@ const firebaseConfig = initializeApp({
 // Export Firestore incase we need to access it directly
 export const firestore = getFirestore();
 
-// db helper to type the db response
+// DB helper to type the db response
 const createCollection = <T = DocumentData>(collectionName: string) => {
   return collection(firestore, collectionName)as CollectionReference<T>
 }
