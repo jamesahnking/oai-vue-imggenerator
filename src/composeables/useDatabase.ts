@@ -1,8 +1,7 @@
-// src/firebase/firebaseConfig.ts
+// This file connects our applicaiton to the Firebase backend
 import { initializeApp } from 'firebase/app'
 import { collection, getFirestore, CollectionReference } from "firebase/firestore"
 import type { DocumentData } from 'firebase/firestore';
-// This file connects our applicaiton to the Firebase backend
 
 // Initialize Firebase App
 const firebaseConfig = initializeApp({
