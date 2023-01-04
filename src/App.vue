@@ -1,10 +1,15 @@
 <template>
-    <PromptModule />
+  <NavigationModule />
+  <PromptModule />
+  <PostModule />
+
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import PromptModule from './components/PromptModule.vue';
+import NavigationModule from "./components/NavigationModule.vue";
+import PostModule from './components/PostModule.vue';
 
 export default defineComponent({
   name: "App",
@@ -15,7 +20,9 @@ export default defineComponent({
   methods: {
   },
   components: {
-    PromptModule
+    PromptModule,
+    NavigationModule,
+    PostModule
   },
 });
 </script>
