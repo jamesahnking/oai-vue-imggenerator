@@ -1,7 +1,14 @@
 <template>
   <NavigationModule />
+  <div>
+  <PostModule v-model="tags"/>
+    <ul>
+      <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+    </ul>
+  </div>
+ 
   <PromptModule />
-  <PostModule />
+
 
 </template>
 
@@ -13,7 +20,11 @@ import PostModule from './components/PostModule.vue';
 
 export default defineComponent({
   name: "App",
-  data() {},
+  data() {
+    return{
+      tags:['Hello','App']
+    }
+  },
   mounted() {
     console.log("app mounted");
   },
@@ -22,7 +33,7 @@ export default defineComponent({
   components: {
     PromptModule,
     NavigationModule,
-    PostModule
+    PostModule,
   },
 });
 </script>
@@ -37,5 +48,9 @@ export default defineComponent({
 
 body {
   background-color: #2c3e50;
+}
+
+ul {
+  color: white;
 }
 </style>
