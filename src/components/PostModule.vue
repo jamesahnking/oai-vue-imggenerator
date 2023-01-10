@@ -43,6 +43,9 @@ import { defineComponent, ref } from 'vue';
 import { getDocs, setDoc, collection, doc } from '@firebase/firestore'
 import { postsCol } from '../composeables/useDatabase'
 
+import { serverTimestamp } from "firebase/firestore";
+
+
 export default defineComponent({
     name: "PostModule",
     // prep tag data for transmission
@@ -81,12 +84,11 @@ export default defineComponent({
             body: '',
             tag: '',
             title: '',
-            index:[]
+            index:[],
         }
     },
 
     mounted() {
-
     },
 
     methods: {
@@ -105,8 +107,17 @@ export default defineComponent({
                 body: this.body,
                 tags: this.tags,
                 title: this.title,
-                blob: this.resImage
+                blob: this.resImage!,
+                meta: {
+                    created: serverTimestamp()
+                }
             })
+        },
+
+        async deletePost() {
+
+            // const res = await db.collection('').doc('dc').delete();
+
         },
 
         async listTags() {
