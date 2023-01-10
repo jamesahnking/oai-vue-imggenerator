@@ -1,4 +1,10 @@
 <template>
+    <div>
+        <PostModule v-model="tags" :resImage ='resImage'/>
+        <ul>
+            <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+        </ul>
+    </div>
     <div class="grid grid-nogutter surface-card col-12">
 
         <Dialog v-model:visible="displayBasic" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
@@ -51,12 +57,15 @@ import { defineComponent } from 'vue';
 import axios from 'axios';
 const url = "https://oai-express-serve.herokuapp.com/openai/generateimage/";
 import srcImage from '../images/src/1024x1024_pholder.png';
+import PostModule from '../components/PostModule.vue';
+
 export default defineComponent({
     name: "PromptModule",
     data() {
         return {
             prompt: '',
             resImage: '',
+            tags:['hello','goodbye'],
             srcImage,
             imageHeight: '500px',
             loading: false,
@@ -96,7 +105,10 @@ export default defineComponent({
 
 
     },
-    components: {},
+    components: {
+        PostModule,
+
+    },
 });
 </script>
 <style scoped>
@@ -106,4 +118,3 @@ export default defineComponent({
     object-fit: cover;
 }
 </style>
-    

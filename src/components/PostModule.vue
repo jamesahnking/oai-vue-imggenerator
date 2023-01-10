@@ -1,5 +1,4 @@
 <template>
-    <p>Theres are the posts</p>
 
     <h5>Body</h5>
     <InputText type="text" v-model="body" />
@@ -19,6 +18,11 @@
                 <button class="delete" @click="removeTag(index)">x</button>
             </li>
         </ul>
+    </div>
+
+    <h5>Blob</h5>
+    <div>
+        <p>{{ resImage }}</p>
     </div>
 
     <h5>Title</h5>
@@ -43,6 +47,7 @@ export default defineComponent({
     name: "PostModule",
     // prep tag data for transmission
     props:{
+        resImage: String,
         modelValue: {type: Array, default: () => []},
     },
     
@@ -90,7 +95,7 @@ export default defineComponent({
             const postDatas = await getDocs(postsCol)
             postDatas.docs.forEach((postData) => {
                 const post = postData.data()
-                console.log(post.title, post.tags, post.body)
+                console.log(post.title, post.tags, post.body, post.blob)
             })
         },
         // add a post to Firebase
@@ -99,7 +104,8 @@ export default defineComponent({
             await setDoc(postPost, {
                 body: this.body,
                 tags: this.tags,
-                title: this.title
+                title: this.title,
+                blob: this.resImage
             })
         },
 

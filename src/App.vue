@@ -1,11 +1,6 @@
 <template>
-  <NavigationModule />
-  <div>
-  <PostModule v-model="tags"/>
-    <ul>
-      <li v-for="tag in tags" :key="tag">{{ tag }}</li>
-    </ul>
-  </div>
+
+
  
   <PromptModule />
 
@@ -32,7 +27,7 @@ export default defineComponent({
   },
   components: {
     PromptModule,
-    NavigationModule,
+    // NavigationModule,
     PostModule,
   },
 });
