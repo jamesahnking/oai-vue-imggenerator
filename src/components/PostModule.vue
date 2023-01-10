@@ -34,13 +34,14 @@
     <Button label="Get Posts" icon="pi pi-external-link" @click="getPosts" class="mr-2"/>
     <Button label="Add Posts" icon="pi pi-external-link" @click="addPosts" class="mr-2"/>
     <Button label="List Tags" icon="pi pi-external-link" @click="listTags" class="mr-2"/>
+    <Button label="Delete Posts" icon="pi pi-external-link" @click="deletePost" class="mr-2"/>
 
 </template>
 
 <script lang="ts">
 
 import { defineComponent, ref } from 'vue';
-import { getDocs, setDoc, collection, doc } from '@firebase/firestore'
+import { getDocs, setDoc, collection, doc, deleteDoc } from '@firebase/firestore'
 import { postsCol } from '../composeables/useDatabase'
 
 import { serverTimestamp } from "firebase/firestore";
@@ -114,10 +115,9 @@ export default defineComponent({
             })
         },
 
-        async deletePost() {
-
-            // const res = await db.collection('').doc('dc').delete();
-
+        async deletePost() {   
+            const postPost = doc(postsCol, 'YUdI2XxKP7n1xMfk7ktG')
+            deleteDoc(postPost)
         },
 
         async listTags() {
