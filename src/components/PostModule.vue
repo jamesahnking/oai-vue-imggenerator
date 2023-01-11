@@ -30,7 +30,6 @@
     <span :style="{ marginLeft: '.5em' }">{{ title }}
     </span>
 
-
     <Button label="Get Posts" icon="pi pi-external-link" @click="getPosts" class="mr-2"/>
     <Button label="Add Posts" icon="pi pi-external-link" @click="addPosts" class="mr-2"/>
     <Button label="List Tags" icon="pi pi-external-link" @click="listTags" class="mr-2"/>
@@ -41,9 +40,8 @@
 <script lang="ts">
 
 import { defineComponent, ref } from 'vue';
-import { getDocs, setDoc, collection, doc, deleteDoc } from '@firebase/firestore'
+import { getDocs, setDoc, doc, deleteDoc } from '@firebase/firestore'
 import { postsCol } from '../composeables/useDatabase'
-
 import { serverTimestamp } from "firebase/firestore";
 
 

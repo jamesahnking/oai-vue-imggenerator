@@ -1,9 +1,7 @@
 <template>
 
-
- 
-  <PromptModule />
-
+<PromptModule />
+<DisplayModule />
 
 </template>
 
@@ -12,6 +10,7 @@ import { defineComponent } from "vue";
 import PromptModule from './components/PromptModule.vue';
 import NavigationModule from "./components/NavigationModule.vue";
 import PostModule from './components/PostModule.vue';
+import DisplayModule from "./components/DisplayModule.vue";
 
 export default defineComponent({
   name: "App",
@@ -27,9 +26,8 @@ export default defineComponent({
   },
   components: {
     PromptModule,
-    // NavigationModule,
-    PostModule,
-  },
+    DisplayModule
+},
 });
 </script>
 
