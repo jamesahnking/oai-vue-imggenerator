@@ -44,7 +44,6 @@ import { getDocs, setDoc, doc, deleteDoc } from '@firebase/firestore'
 import { postsCol } from '../composeables/useDatabase'
 import { serverTimestamp } from "firebase/firestore";
 
-
 export default defineComponent({
     name: "PostModule",
     // prep tag data for transmission
@@ -104,9 +103,9 @@ export default defineComponent({
             const postPost = doc(postsCol)
             await setDoc(postPost, {
                 body: this.body,
-                tags: this.tags,
+                tags: this.tags as any,
                 title: this.title,
-                blob: this.resImage!,
+                blob: this.resImage as any,
                 meta: {
                     created: serverTimestamp()
                 }

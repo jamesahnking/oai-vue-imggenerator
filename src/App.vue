@@ -1,7 +1,7 @@
 <template>
 
 <PromptModule />
-<DisplayModule />
+<!-- <DisplayModule /> -->
 
 </template>
 

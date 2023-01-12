@@ -47,6 +47,11 @@
             </div>
         </div>
 
+        <div>
+        <DisplayModule :resImage ='resImage'/>
+
+    </div>
+
     </div>
 
 </template>
@@ -58,6 +63,7 @@ import axios from 'axios';
 const url = "https://oai-express-serve.herokuapp.com/openai/generateimage/";
 import srcImage from '../images/src/1024x1024_pholder.png';
 import PostModule from '../components/PostModule.vue';
+import DisplayModule from './DisplayModule.vue';
 
 export default defineComponent({
     name: "PromptModule",
@@ -107,6 +113,7 @@ export default defineComponent({
     },
     components: {
         PostModule,
+        DisplayModule
 
     },
 });
