@@ -26,7 +26,7 @@ export default defineComponent({
   },
   components: {
     PromptModule,
-    DisplayModule
+    // DisplayModule
 },
 });
 </script>
