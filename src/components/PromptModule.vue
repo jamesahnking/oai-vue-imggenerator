@@ -60,8 +60,6 @@
 
 import { defineComponent } from 'vue';
 import type { Blob } from '@/types/Blob'
-import axios from 'axios';
-import dotenv from 'dotenv';
 const url = "https://oai-express-serve.herokuapp.com/openai/generateimage/";
 const dalleEndpoint = 'https://api.openai.com/v1/images/generations';
 import srcImage from '../images/src/1024x1024_pholder.png';
@@ -101,9 +99,9 @@ export default defineComponent({
 
             // Form the request body
             const reqBody = {
-                prompt: prompt,
+                prompt: this.prompt,
                 n: this.count,
-                response_format: 'url',
+                response_format: 'b64_json',
             }
 
             //Construct the data for the POST request
@@ -111,13 +109,13 @@ export default defineComponent({
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${import.meta.env.OPENAI_API_KEY}`,
+                    'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
                 },
                 
                 body: JSON.stringify(reqBody)
             }
 
-            // Fetch - Post request
+            // Fetch - Post request - promise API 
             fetch(dalleEndpoint, reqParams)
                 .then(res => res.json())
                 
@@ -128,27 +126,7 @@ export default defineComponent({
 
 
 
-            // try {
-            //     this.loading = true;
-            //     const res = await axios.post(url, {
-            //         prompt: this.prompt,
-            //         responseType: "blob"
-            //     })
 
-            //     this.resImage = res.data.data;
-            //     this.blobImage = res.data;
-            //     this.loading = false;
-            //     console.log(`Hey its RESIMAGE ${this.resImage} this.loading = ${this.loading}`)
-
-            // } catch (err) {
-
-            //     this.loading = false;
-            //     this.error = true;
-            //     this.openBasic();
-            //     console.log(`Error - YOu need to add text for this to work`)
-            // }
-
-            // this.blobToFile(this.blobImage, 'image')
         },
 
         openBasic() {
