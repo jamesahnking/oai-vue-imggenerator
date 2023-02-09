@@ -1,12 +1,12 @@
 <template>
     <!-- <div> -->
-        <!-- <PostModule v-model="tags" :resImage ='resImage'/> -->
-        <!-- <ul>
+    <!-- <PostModule v-model="tags" :resImage ='resImage'/> -->
+    <!-- <ul>
             <li v-for="tag in tags" :key="tag">{{ tag }}</li>
         </ul>
     </div> -->
     <div class="grid grid-nogutter surface-card col-12">
-<!-- 
+        <!-- 
         <Dialog v-if="prompt.length!" v-model:visible="displayBasic" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
             :style="{ width: '50vw' }">
             <p>Make sure your add text to the prompt killa!</p>
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <!-- COl2 -->
+        <!-- COl2 conditional Image display-->
         <div class="col-12 md:col-12 lg:col-6">
             <div class="p-0">
                 <div class="border-round surface-card">
@@ -39,7 +39,6 @@
                     </div>
                     <div v-if="resImage.length">
                         <img :src="`${resImage}`" class="image-fit">
-                        <img :src="`${blobImage}`" class="image-fit">
                     </div>
                     <div v-else>
                         <img :src="`${srcImage}`" class="image-fit">
@@ -49,9 +48,9 @@
         </div>
 
         <div>
-        <!-- <DisplayModule :resImage ='resImage'/> -->
+            <!-- <DisplayModule :resImage ='resImage'/> -->
 
-    </div>
+        </div>
 
     </div>
 
@@ -62,26 +61,29 @@
 import { defineComponent } from 'vue';
 import type { Blob } from '@/types/Blob'
 import axios from 'axios';
+import dotenv from 'dotenv';
 const url = "https://oai-express-serve.herokuapp.com/openai/generateimage/";
+const dalleEndpoint = 'https://api.openai.com/v1/images/generations';
 import srcImage from '../images/src/1024x1024_pholder.png';
 // import PostModule from '../components/PostModule.vue';
 // import DisplayModule from './DisplayModule.vue';
 
 export default defineComponent({
-    
+
     name: "PromptModule",
     data() {
         return {
             prompt: '',
             resImage: '',
-            blobImage:[] as Blob[],
-            anImage:{},
-            tags:['hello','goodbye'],
+            blobImage: [] as Blob[],
+            anImage: {},
+            tags: ['hello', 'goodbye'],
             srcImage,
             imageHeight: '500px',
             loading: false,
             error: false,
             displayBasic: false,
+            count: 1
         }
     },
     mounted() {
@@ -90,38 +92,67 @@ export default defineComponent({
 
 
 
-        blobToFile(theBlob:any, fileName:any) {
+        blobToFile(theBlob: any, fileName: any) {
             console.log(theBlob);
-            return new File([theBlob], fileName, { lastModified: new Date().getTime(), type: theBlob.type})
+            return new File([theBlob], fileName, { lastModified: new Date().getTime(), type: theBlob.type })
         },
 
         async sendText() {
-            try {
 
-                this.loading = true;
-                const res = await axios.post(url, {
-                    prompt: this.prompt,
-                    responseType: "blob"
-                })
-
-                this.resImage = res.data.data;
-                this.blobImage = res.data;
-                this.loading = false;
-                console.log(`Hey its RESIMAGE ${this.resImage} this.loading = ${this.loading}`)
-
-            } catch (err) {
-
-                this.loading = false;
-                this.error = true;
-                this.openBasic();
-                console.log(`Error - YOu need to add text for this to work`)
+            // Form the request body
+            const reqBody = {
+                prompt: prompt,
+                n: this.count,
+                response_format: 'url',
             }
-            
-            this.blobToFile(this.blobImage, 'image')
+
+            //Construct the data for the POST request
+            const reqParams = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${import.meta.env.OPENAI_API_KEY}`,
+                },
+                
+                body: JSON.stringify(reqBody)
+            }
+
+            // Fetch - Post request
+            fetch(dalleEndpoint, reqParams)
+                .then(res => res.json())
+                
+                // .then(json => addImages(json, prompt))
+                .catch(error => {
+                    console.log(`Something Went Wrong ${error}`);
+                });
+
+
+
+            // try {
+            //     this.loading = true;
+            //     const res = await axios.post(url, {
+            //         prompt: this.prompt,
+            //         responseType: "blob"
+            //     })
+
+            //     this.resImage = res.data.data;
+            //     this.blobImage = res.data;
+            //     this.loading = false;
+            //     console.log(`Hey its RESIMAGE ${this.resImage} this.loading = ${this.loading}`)
+
+            // } catch (err) {
+
+            //     this.loading = false;
+            //     this.error = true;
+            //     this.openBasic();
+            //     console.log(`Error - YOu need to add text for this to work`)
+            // }
+
+            // this.blobToFile(this.blobImage, 'image')
         },
 
         openBasic() {
-            this.displayBasic = true;``
+            this.displayBasic = true; ``
         },
         closeBasic() {
             this.displayBasic = false;
@@ -139,5 +170,5 @@ export default defineComponent({
     height: 100%;
     width: 100%;
     object-fit: cover;
-    }
+}
 </style>
