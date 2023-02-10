@@ -38,7 +38,8 @@
                         <ProgressBar mode="indeterminate" style="height: .5em" />
                     </div>
                     <div>
-                   {{ resImage }}
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4
+  //8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
                         <!-- <img :src="`${srcImage}`" class="image-fit">
                         <img v-bind:src="'data:image/png;base64,'+imageBytes" /> -->
                     </div>
