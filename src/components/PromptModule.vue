@@ -26,7 +26,7 @@
                 <label for="email4" class="block text-900 font-xs mb-2">Image Description</label>
                 <InputText id="email4" v-model="prompt" type="text" class="w-full mb-3 p-3"
                     placeholder="Ex. A dragon sipping a beer on a volcano" />
-                <Button @click="sendText" label="Generate a new AI Image" class="pi-pallet w-full py-3"></Button>
+                <Button @click="getData" label="Generate a new AI Image" class="pi-pallet w-full py-3"></Button>
             </div>
         </div>
 
@@ -37,11 +37,13 @@
                     <div v-show="loading">
                         <ProgressBar mode="indeterminate" style="height: .5em" />
                     </div>
-                    <div>
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4
-  //8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
-                        <!-- <img :src="`${srcImage}`" class="image-fit">
-                        <img v-bind:src="'data:image/png;base64,'+imageBytes" /> -->
+
+                    <div v-if="resImage">
+                        <img v-bind:src="'data:image/jpeg;base64,' + resImage" class="image-fit" />
+                    </div>
+
+                    <div v-else>
+                        <img :src="`${srcImage}`" class="image-fit">
                     </div>
                     <!-- <div v-else>
                         <img :src="`${srcImage}`" class="image-fit">
@@ -78,7 +80,7 @@ export default defineComponent({
         return {
             data: null,
             loading: false,
-            error: null,
+            error: null as any,
             listItems: [] as any,
             prompt: '',
             resImage: null,
@@ -102,8 +104,8 @@ export default defineComponent({
     },
     methods: {
 
-        async sendText() {
 
+        async getData() {
             // Form the request body
             const reqBody = {
                 prompt: this.prompt,
@@ -121,44 +123,48 @@ export default defineComponent({
                 body: JSON.stringify(reqBody)
             }
 
-            // Fetch/Capture Response - Post request - using promise API 
-            await fetch(dalleEndpoint, reqParams)
-                .then(res => res.json())
-                .then(json => this.processb64(json))
+            await fetch(dalleEndpoint, reqParams)                
+                .then(res => res.json()) 
+                .then((response) => {
+                    this.resImage = response.data[0].b64_json
+                })
+                .then(() => {
+                    this.loading = false;
+                })
+                // .then(json => this.processb64(json))
                 .catch(error => {
                     console.log(`Something Went Wrong ${error}`);
                 });
         },
 
+
         // Add images to the applciation   
-         processb64(jsonData: any) {
+        processb64(jsonData: any) {
             // Is there an issue ? 
             // this.anImage = jsonData.data;
             // this.promptMessage = prompt
-
-            
             for (let i = 0; i < jsonData.data.length; i++) {
-                const b64 = jsonData.data[i].b64_json;
+                const b64 = jsonData.data[i].b64_json
                 // const buffer = Buffer.from(b64, "base64");
                 this.resImage = b64;
-                console.log("Listing b64 blob " + b64);
+                console.log("Listing b64 blob " + this.resImage);
                 // fs.writeFileSync(filename, buffer);
             }
-            },
-// img = {  encodedImage: 'data:image/jpg;base64,/9x/4AFQSkZJRgABAXAASABIAAD...'}
-            openBasic() {
-                this.displayBasic = true; ``
-            },
-            closeBasic() {
-                this.displayBasic = false;
-            },
         },
-        components: {
-            // PostModule,
-            // DisplayModule
+        // img = {  encodedImage: 'data:image/jpg;base64,/9x/4AFQSkZJRgABAXAASABIAAD...'}
+        openBasic() {
+            this.displayBasic = true; ``
+        },
+        closeBasic() {
+            this.displayBasic = false;
+        },
+    },
+    components: {
+        // PostModule,
+        // DisplayModule
 
-        },
-    });
+    },
+});
 </script>
 <style scoped>
 .image-fit {
