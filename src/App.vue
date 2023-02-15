@@ -1,5 +1,6 @@
 <template>
 
+<NavigationModule />
 <PromptModule />
 <!-- <DisplayModule /> -->
 
@@ -26,6 +27,7 @@ export default defineComponent({
   },
   components: {
     PromptModule,
+    NavigationModule
     // DisplayModule
 },
 });
