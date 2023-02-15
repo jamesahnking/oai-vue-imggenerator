@@ -12,17 +12,12 @@
 <script lang="ts">
 
 import { defineComponent } from 'vue';
-import axios from 'axios';
-const url = "http://localhost:5001/openai/generateimage/";
-// import PostService from '../../PostService';
-import srcImage from '../images/src/1024x1024_pholder.png';
+
 export default defineComponent({
     name: "PromptForm",
     data() {
         return {
-            prompt: '',
-            resImage: '',
-            srcImage: srcImage,
+          
             loading: false,
         }
     },
@@ -30,15 +25,6 @@ export default defineComponent({
     },
 
     methods: {
-        // Send text to AI  
-        async sendText() {
-            this.loading = true;
-            const res = await axios.post(url, {
-                prompt: this.prompt,
-            })
-            this.resImage = res.data.data;
-            console.log(`Hey its RESIMAGE ${this.resImage}`)
-        }
     },
     components: {},
 });

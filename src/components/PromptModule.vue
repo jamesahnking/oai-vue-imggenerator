@@ -96,15 +96,6 @@ export default defineComponent({
     },
     methods: {
 
-<<<<<<< HEAD
-                this.resImage = res.data.data;
-
-                if (res.data.length) {
-                    this.loading = false;
-                }
-                console.log(`Hey its RESIMAGE ${this.resImage} this.loading = ${this.loading}`)
-=======
->>>>>>> develop
 
         async getData() {
             // Form the request body
