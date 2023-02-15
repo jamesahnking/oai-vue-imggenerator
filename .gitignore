@@ -16,6 +16,8 @@ coverage
 
 /cypress/videos/
 /cypress/screenshots/
+# database creds
+useDatabase.ts
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +28,4 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+

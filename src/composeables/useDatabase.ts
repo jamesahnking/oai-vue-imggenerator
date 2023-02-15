@@ -1,8 +1,7 @@
-// src/firebase/firebaseConfig.ts
+// This file connects our applicaiton to the Firebase backend
 import { initializeApp } from 'firebase/app'
 import { collection, getFirestore, CollectionReference } from "firebase/firestore"
 import type { DocumentData } from 'firebase/firestore';
-// This file connects our applicaiton to the Firebase backend
 
 // Initialize Firebase App
 const firebaseConfig = initializeApp({
@@ -17,7 +16,7 @@ const firebaseConfig = initializeApp({
 // Export Firestore incase we need to access it directly
 export const firestore = getFirestore();
 
-// db helper to type the db response
+// DB helper to type the db response
 const createCollection = <T = DocumentData>(collectionName: string) => {
   return collection(firestore, collectionName)as CollectionReference<T>
 }

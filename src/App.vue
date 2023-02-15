@@ -1,7 +1,8 @@
 <template>
-  <NavigationModule />
-  <PromptModule />
-  <PostModule />
+
+<NavigationModule />
+<PromptModule />
+<!-- <DisplayModule /> -->
 
 </template>
 
@@ -10,10 +11,15 @@ import { defineComponent } from "vue";
 import PromptModule from './components/PromptModule.vue';
 import NavigationModule from "./components/NavigationModule.vue";
 import PostModule from './components/PostModule.vue';
+import DisplayModule from "./components/DisplayModule.vue";
 
 export default defineComponent({
   name: "App",
-  data() {},
+  data() {
+    return{
+      tags:['Hello','App']
+    }
+  },
   mounted() {
     console.log("app mounted");
   },
@@ -21,9 +27,9 @@ export default defineComponent({
   },
   components: {
     PromptModule,
-    NavigationModule,
-    PostModule
-  },
+    NavigationModule
+    // DisplayModule
+},
 });
 </script>
 
@@ -37,5 +43,9 @@ export default defineComponent({
 
 body {
   background-color: #2c3e50;
+}
+
+ul {
+  color: white;
 }
 </style>
