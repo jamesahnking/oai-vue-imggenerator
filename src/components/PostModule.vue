@@ -13,10 +13,10 @@
         @keydown.delete="newTag.length || removeTag(tags.length - 1)"
         />
         <ul class="tags">
-            <li v-for="(tag, index) in tags" :key="tag" class="tag">
+            <!-- <li v-for="(tag, index) in tags" :key="tag" class="tag">
                 {{ tag }}
                 <button class="delete" @click="removeTag(index)">x</button>
-            </li>
+            </li> -->
         </ul>
     </div>
 
