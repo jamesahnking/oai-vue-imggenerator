@@ -24,7 +24,7 @@
                     
                 </div>
                 <InputText id="email4" v-model="prompt" type="text" class="w-full mb-3 p-3"
-                    placeholder="Ex. an isometric view of a miniature city , tilt shift, high detail" />
+                    placeholder="Ex. an isometric view of a miniature city, tilt shift, high detail" />
                 <Button @click="getData" label="Generate a new AI Image" class="pi-pallet w-full py-3"></Button>
             </div>
         </div>
